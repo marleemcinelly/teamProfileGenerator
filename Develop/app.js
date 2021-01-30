@@ -32,7 +32,7 @@ inquirer
             type: 'list',
             message: 'Enter your role in the company',
             name: 'role',
-            choices: [Employee, Engineer, Intern, Manager]
+            choices: [Engineer, Intern, Manager]
         },
         
     ])
