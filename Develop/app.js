@@ -17,34 +17,44 @@ const render = require("./lib/htmlRenderer");
 inquirer
     .prompt([
         {
+            type: 'list',
+            message: 'What employee type would you like to add?',
+            name: 'role',
+            choices: [Engineer, Intern, Manager]
+        },
+        {
             type: 'input',
-            message: 'Enter your name',
+            message: `Enter the employee's name`,
             name: 'name'
         },
         {
             type: 'input',
-            message: 'Enter your email',
+            message: 'Enter their email',
             name: 'email'
         },
         {
             type: 'input',
-            message: 'Enter your id',
+            message: 'Enter their ID',
             name: 'id'
         },
         {
             type: 'list',
-            message: 'Enter your role in the company',
-            name: 'role',
-            choices: [Engineer, Intern, Manager]
-        },
-        
+            message: 'Do you have more employees to add?',
+            name: "addMore",
+            choices: ["Yes", "No"]
+        }
     ])
     
 .then((response)=>{
-    var year = new Date().getFullYear();
-    var userLicense = 'placeholder';
-    const data = userLicense + `\n\n ## ${response.title}\n\n # Description\n\n ${response.description}\n\n # Table of Contents\n\n * [Installation](#-installation)\n * [Useage](#-usage)\n * [License](#-license)\n * [Contributing](#-contributing)\n * [Tests](#-tests)\n * [Questions](#-questions)\n\n # Installation\n\n ${response.install}\n\n # Usage\n\n ${response.use}\n\n # License\n\n Copyright ` + year + ` ${response.userGitHub}\n\n ${response.license}\n\n # Contributing\n\n ${response.contribute}\n\n # Tests\n\n ${response.test}\n\n # Questions?\n\n You can find me on GitHub at: (https://github.com/${response.userGitHub})\n\n You can also email me directly at: ${response.userEmail} \n\n${response.qOrC}`;
-    fs.writeFile(`${response.title}.md`, data, (err) => err ? console.log(err) : console.log('File generated successfully! Check your folder!'));
+    // add a new employee, with type selected
+    if (`${response.addMore}` === "Yes") {
+        // a return, forcing the inquirer to loop again
+    } else {
+        // placing the writefile directly in here to allow the inquirer to exit
+        const data = `./template/main.html`; //here's where the html boilerplate goes
+        fs.writeFile(`./output/team.html`, data, (err) => err ? console.log(err) : console.log('File generated successfully! Check your folder!'));
+    }
+    
 });
 
 
